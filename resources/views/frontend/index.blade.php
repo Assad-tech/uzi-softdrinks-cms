@@ -79,163 +79,6 @@
                             </div>
                         </div>
                     @endforeach
-
-                    {{-- <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/apple.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/graps.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/product1.png') }}" class="img-fluid">
-                                            <p style="color:#A3CE47;">Green
-                                                Apple</p>
-                                        </li>
-                                    </ul>
-                                    <button><a href="cheer.php" style="color:#A3CE47;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/main-product.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/cherry.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/product2.png') }}" class="img-fluid">
-                                            <p style="color:#8B6DB0;">Grape
-                                                pop</p>
-                                        </li>
-                                    </ul>
-                                    <button><a href="cheer.php" style="color:#8B6DB0;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/SOUR.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/product-drink.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/product3.png') }}" class="img-fluid">
-                                            <p style="color:#ED1B31;">
-                                                Cherry</p>
-                                        </li>
-                                    </ul>
-
-                                    <button><a href="cheer.php" style="color:#ED1B31;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/Passion.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/passion-inner.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/passin-small.png') }}"
-                                                class="img-fluid">
-                                            <p style="color:#ED047A;">Passion fruits</p>
-                                        </li>
-                                    </ul>
-                                    <button><a href="cheer.php" style="color:#ED047A;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/Peach.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/peach-inner.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/peach-small.png') }}"
-                                                class="img-fluid">
-                                            <p style="color:#EF5087;">
-                                                Peach</p>
-                                        </li>
-                                    </ul>
-
-                                    <button><a href="cheer.php" style="color:#EF5087;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-box">
-                            <div class="product-middle">
-                                <div class="product-middle-img">
-                                    <img src="{{ asset('front/assets/images/Cotton.png') }}" class="img-fluid">
-                                </div>
-                            </div>
-
-                            <div class="product-top-box">
-                                <img src="{{ asset('front/assets/images/cotton-inner.png') }}" class="img-fluid">
-                            </div>
-                            <div class="product-bottom-box">
-                                <div class="product-bott-img">
-                                    <ul>
-                                        <li><img src="{{ asset('front/assets/images/cotton-small.png') }}"
-                                                class="img-fluid">
-                                            <p style="color:#00BEDF;">
-                                                Cotton
-                                                Candy</p>
-                                        </li>
-                                    </ul>
-
-                                    <button><a href="cheer.php" style="color:#00BEDF;">Shop Now</a></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> --}}
                 </div>
 
                 <button class="social-btn"><a href="{{ route('find.uzi') }}">UZI FLAVORS </a></button>
@@ -283,7 +126,14 @@
                             <h2>THE NEW WAY TO BUZZ</h2>
 
                             <div class="img-txt-main">
-                                <div class="first-text">
+                                @foreach ($ingredients as $data)
+                                    <div class="first-text" style="{{ $loop->last ? 'border-right: none;' : '' }}">
+                                        <img src="{{ asset('front/assets/images/ingredients/' . $data->image ?? '') }}"
+                                            class="img-fluid" alt="{{ $data->title ?? '' }}">
+                                        <span>{{ $data->title ?? '' }}</span>
+                                    </div>
+                                @endforeach
+                                {{-- <div class="first-text">
                                     <img src="{{ asset('front/assets/images/image 10.png') }}" class="img-fluid"
                                         alt="">
                                     <span>MILK THISTLE</span>
@@ -299,11 +149,11 @@
                                     <img src="{{ asset('front/assets/images/image4.png') }}" class="img-fluid"
                                         alt="">
                                     <span>ELECTROLYTES </span>
-                                </div>
+                                </div> --}}
 
                             </div>
 
-                            <button class="social-btn"><a href="about.php">learn more</a></button>
+                            <button class="social-btn"><a href="{{ route('about') }}">learn more</a></button>
                         </div>
                     </div>
                 </div>

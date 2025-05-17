@@ -27,8 +27,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $locations = location::all();
-        return view('backend.product.create', compact('categories', 'locations'));
+        // $locations = location::all();
+        return view('backend.product.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -43,8 +43,8 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
             'packing_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
             'fruit_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
-            'location' => 'required|array',
-            'location.*' => 'exists:locations,id',
+            // 'location' => 'required|array',
+            // 'location.*' => 'exists:locations,id',
         ]);
         $imageName = null;
         $packingImageName = null;

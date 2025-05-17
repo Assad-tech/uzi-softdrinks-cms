@@ -143,7 +143,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        {{-- <div class="col-sm-12">
                                             <div class="form-group">
                                                 <h4 class="control-label" for="bss2">Select Locations</h4>
                                                 <select id="bss2" class="form-control" name="location[]" data-toggle="selectpicker"
@@ -153,7 +153,7 @@
                                                     @endforeach
                                                 </select>
                                             </div><!-- /.form-group -->
-                                        </div>
+                                        </div> --}}
                                         {{-- Fruit Image --}}
                                         <div class="col-sm-12">
                                             <div class="form-group">

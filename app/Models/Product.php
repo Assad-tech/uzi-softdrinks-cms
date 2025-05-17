@@ -32,10 +32,25 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+    // Define the relationship with ProductLocation
+    public function productLocations()
+    {
+        return $this->hasMany(Product_location::class, 'product_id');
+    }
+
+    // Get all locations for the product
     public function locations()
     {
-        return $this->belongsToMany(Location::class, 'product_locations');
+        return $this->hasManyThrough(
+            Location::class,
+            Product_location::class,
+            'product_id', // Foreign key on ProductLocation table
+            'id', // Foreign key on Location table
+            'id', // Local key on Products table
+            'location_id' // Local key on ProductLocation table
+        );
     }
+
     // public function orderItems()
     // {
     //     return $this->hasMany(OrderItem::class);

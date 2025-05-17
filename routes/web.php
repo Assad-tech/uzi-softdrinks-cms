@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductLocationController;
 use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\SiteContentController;
 use App\Http\Controllers\Admin\TermsConditionController;
@@ -167,6 +168,16 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/edit/product/{id}', 'edit')->name('admin.edit.product');
         Route::post('/update/product/{id}', 'update')->name('admin.update.product');
         Route::get('/delete/product/{id}', 'destroy')->name('admin.delete.product');
+    });
+
+    // Product Locations Routes
+    Route::controller(ProductLocationController::class)->group(function () {
+        Route::get('/product-locations', 'index')->name('admin.manage.product-locations');
+        Route::get('/add/product-location', 'create')->name('admin.add.product-location');
+        Route::post('/store/product-location', 'store')->name('admin.store.product-location');
+        Route::get('/edit/product-location/{id}/{location_id}', 'edit')->name('admin.edit.product-location');
+        Route::post('/update/product-location/{id}', 'update')->name('admin.update.product-location');
+        Route::get('/delete/product-location/{id}', 'destroy')->name('admin.delete.product-location');
     });
 
     // Ingredients Routes

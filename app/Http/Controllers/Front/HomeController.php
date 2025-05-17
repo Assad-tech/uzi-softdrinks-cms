@@ -35,8 +35,9 @@ class HomeController extends Controller
         $banner = Banner::where('page', 'home')->first();
         $products = Product::with('locations')->where('status', 1)->get();
         $sliders = Home::where('type', 'malibu')->get();
+        $ingredients = Ingredient::all();
         // dd($sliders);
-        return view('frontend.index', compact('banner', 'products', 'sliders'));
+        return view('frontend.index', compact('banner', 'products', 'sliders','ingredients'));
     }
 
     // about us
@@ -98,7 +99,6 @@ class HomeController extends Controller
 
     // _______________ Product Carts Methods _________________
 
-    // view Cart
     public function viewCart()
     {
         return view('frontend.viewCart');
@@ -198,4 +198,6 @@ class HomeController extends Controller
         $cartItem->delete();
         return response()->json(['success' => true, 'message' => 'Cart item removed successfully.']);
     }
+
 }
+

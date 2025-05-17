@@ -147,14 +147,14 @@
                         <!-- /child menu -->
                     </li>
 
-                    {{-- <li class="menu-item {{ Route::is('admin.manage.faqs') ? 'has-active' : '' }}">
-                        <a href="{{ route('admin.manage.faqs') }}" class="menu-link">
+                     <li class="menu-item {{ Route::is('admin.manage.product-locations') ? 'has-active' : '' }}">
+                        <a href="{{ route('admin.manage.product-locations') }}" class="menu-link">
                             <span class="menu-icon far fa-file"></span>
-                            <span class="menu-text">FAQs</span>
+                            <span class="menu-text">Product Locations</span>
                         </a>
                     </li>
 
-                    <li class="menu-item {{ Route::is('admin.manage.contact-us') ? 'has-active' : '' }}">
+                    {{--<li class="menu-item {{ Route::is('admin.manage.contact-us') ? 'has-active' : '' }}">
                         <a href="{{ route('admin.manage.contact-us') }}" class="menu-link">
                             <span class="menu-icon far fa-file"></span>
                             <span class="menu-text">Contact Us</span>
