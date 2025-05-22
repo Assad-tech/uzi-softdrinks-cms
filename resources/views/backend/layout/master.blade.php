@@ -40,7 +40,7 @@
 
     <style>
         .has-active {
-            background-color: #C6B19F !important;
+            background-color: #EBC4EE !important;
         }
 
         .has-active .menu-text,

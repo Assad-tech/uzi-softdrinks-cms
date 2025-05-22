@@ -70,7 +70,7 @@
             </div><!-- /.form-group -->
             <!-- .form-group -->
             <div class="form-group mb-4">
-                <button style="background-color: #C6B19F; color: #fff;" class="btn btn-lg btn-block" type="submit">Sign
+                <button style="background-color: #EBC4EE; color: #000;" class="btn btn-lg btn-block" type="submit">Sign
                     In</button>
             </div><!-- /.form-group -->
             <!-- .form-group -->
@@ -83,7 +83,7 @@
         @endphp
         {{-- @dd($logo->footer_logo); --}}
         <!-- .auth-announcement -->
-        <div id="announcement" class="auth-announcement d-flex align-items-center" style="background-color: #C6B19F;">
+        <div id="announcement" class="auth-announcement d-flex align-items-center" style="background-color: #EBC4EE">
             <div class="announcement-body m-auto">
                 {{-- <h2 class="announcement-title"> How to Prepare for an Automated Future </h2>
                 <a href="#" class="btn btn-warning">

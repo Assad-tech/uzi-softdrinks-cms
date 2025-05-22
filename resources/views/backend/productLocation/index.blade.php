@@ -67,11 +67,11 @@
 
                                             {{-- Action Column --}}
                                             <td>
-                                                {{-- Uncomment and customize actions if needed --}}
-                                                <a href="{{ route('admin.edit.product-location', ['id'=>$product->id, 'location_id'=>$productLocation->id]) }}" class="btn btn-info btn-sm">Edit</a>
-                        <a href="{{ route('admin.delete.product-location', $product->id) }}" 
-                           class="btn btn-danger btn-sm" 
-                           onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                                                <a href="{{ route('admin.edit.product-location', ['id' => $product->id, 'location_id' => $productLocation->location_id]) }}"
+                                                    class="btn btn-info btn-sm">Edit</a>
+                                                <a href="{{ route('admin.delete.product-location', ['id' => $product->id, 'location_id' => $productLocation->location_id]) }}"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

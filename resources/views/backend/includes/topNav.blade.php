@@ -25,7 +25,7 @@
                 </svg> --}}
                 <svg width="250" height="50" xmlns="http://www.w3.org/2000/svg">
                     <text x="0" y="35" font-family="Segoe UI, sans-serif" font-size="22" font-weight="bold">
-                        <tspan fill="#F7C46C">UZI - </tspan>
+                        <tspan fill="#000">UZI - </tspan>
                         <tspan fill="white">CMS</tspan>
                     </text>
                 </svg>

@@ -13,7 +13,7 @@
     --gray: #888c9b;
     --gray-dark: #222230;
     /* --primary: #346cb0; */
-    --primary: #C6B19F;
+    --primary: #EBC4EE;
     --secondary: #f6f7f9;
     --success: #00a28a;
     --info: #0179a8;
@@ -2982,7 +2982,7 @@ input[type="submit"].btn-block {
 .dropdown-item:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #c6b19f;
+    background-color: #e4b8e7;
 }
 .dropdown-item.disabled,
 .dropdown-item:disabled {

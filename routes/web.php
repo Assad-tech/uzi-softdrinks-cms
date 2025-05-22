@@ -176,8 +176,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/add/product-location', 'create')->name('admin.add.product-location');
         Route::post('/store/product-location', 'store')->name('admin.store.product-location');
         Route::get('/edit/product-location/{id}/{location_id}', 'edit')->name('admin.edit.product-location');
-        Route::post('/update/product-location/{id}', 'update')->name('admin.update.product-location');
-        Route::get('/delete/product-location/{id}', 'destroy')->name('admin.delete.product-location');
+        Route::post('/update/product-location/{id}/{location_id}', 'update')->name('admin.update.product-location');
+        Route::get('/delete/product-location/{id}/{location_id}', 'destroy')->name('admin.delete.product-location');
     });
 
     // Ingredients Routes
@@ -211,9 +211,14 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/about', 'about')->name('about');
     Route::get('/ingredients', 'ingredients')->name('ingredients');
     Route::get('/find-uzi', 'findUzi')->name('find.uzi');
-    Route::get('/api/product-locations/{id}', 'getLocations');
+    Route::get('/api/product-locations/{id}/{location_id}', 'getLocations');
     Route::get('/shop', 'shop')->name('shop');
     Route::get('/shop/product-details', 'viewProduct')->name('product.details');
     Route::get('/cart', 'viewCart')->name('view.cart');
     Route::get('/terms-and-conditions', 'termsAndConditions')->name('terms-and-conditions');
 });
+
+
+// Route::get('/test-map', function () {
+//     return view('frontend.testingMaps');
+// });

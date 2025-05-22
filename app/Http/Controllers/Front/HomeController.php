@@ -21,6 +21,7 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\TermAndCondition;
 use App\Models\Testimonial;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -37,7 +38,7 @@ class HomeController extends Controller
         $sliders = Home::where('type', 'malibu')->get();
         $ingredients = Ingredient::all();
         // dd($sliders);
-        return view('frontend.index', compact('banner', 'products', 'sliders','ingredients'));
+        return view('frontend.index', compact('banner', 'products', 'sliders', 'ingredients'));
     }
 
     // about us
@@ -54,7 +55,7 @@ class HomeController extends Controller
     {
         $banner = Banner::where('page', 'ingredients')->first();
         $ingredients = Ingredient::all();
-        return view('frontend.ingredients', compact('banner','ingredients'));
+        return view('frontend.ingredients', compact('banner', 'ingredients'));
     }
 
     // Find Uzi
@@ -64,17 +65,30 @@ class HomeController extends Controller
         $locations = location::all();
         $banner = Banner::where('page', 'find uzi')->first();
         $logos = AboutOurClient::all();
-        return view('frontend.findUzi', compact('products', 'locations','banner','logos'));
+
+        // dd($products);
+        return view('frontend.findUzi', compact('products', 'locations', 'banner', 'logos'));
     }
 
     // get Lcations by Ajax
-    public function getLocations($id)
+    public function getLocations($id, $location_id)
     {
-        // dd($id);
-        $locations = Location::whereHas('products', function ($q) use ($id) {
-            $q->where('product_id', $id);
-        })->get();
+        // dd('product_id = ' . $id . ' :: location_id = ' . $location_id);
+        // $locations = Location::whereHas('products', function ($q) use ($id) {
+        //     $q->where('product_id', $id);
+        // })->get();
 
+        $locations = Product::with(['productLocations' => function ($query) use ($location_id) {
+            $query->where('location_id', $location_id)
+                ->with('locationCoordinates');
+        }])
+            ->where('id', $id)
+            ->whereHas('productLocations', function (Builder $query) use ($location_id) {
+                $query->where('location_id', $location_id);
+            })
+            ->first();
+
+            // dd($locations);
         return response()->json($locations);
     }
 
@@ -198,6 +212,4 @@ class HomeController extends Controller
         $cartItem->delete();
         return response()->json(['success' => true, 'message' => 'Cart item removed successfully.']);
     }
-
 }
-
