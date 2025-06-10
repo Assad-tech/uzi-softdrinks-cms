@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('packing_image')->nullable();
             $table->string('fruit_image')->nullable();
+            $table->string('font_color')->nullable();
             $table->boolean('status')->default(true);
             $table->boolean('featured')->default(false);
             $table->string('slug')->unique();

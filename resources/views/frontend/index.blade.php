@@ -20,15 +20,15 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="banner-content" data-aos="fade-right" data-aos-offset="400">
-                                <h2>{{ strtoupper($banner->site_name ?? 'the new way to buzz!') }}</h2>
-                                <p>{{ str($banner->banner_description ?? 'changing the game with one bold at a time') }}</p>
+                                {{-- <h2>{{ strtoupper($banner->site_name ?? 'the new way to buzz!') }}</h2>
+                                <p>{{ str($banner->banner_description ?? 'changing the game with one bold at a time') }}</p> --}}
                                 {{-- <a class="banner-btn" href="cheer.php">shop now</a> --}}
                             </div>
 
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="banner-img" data-aos="fade-up" data-aos-offset="300">
+                            <div class="banner-img" data-aos="fade-up" data-aos-offset="400">
                                 <img src="{{ asset('front/assets/images/banner/' . $banner->banner ?? 'front/assets/images/banner.image.png') }}"
                                     class="img-fluid" alt="">
                             </div>
@@ -68,11 +68,17 @@
                                             <li>
                                                 <img src="{{ asset('front/assets/images/products/' . $product->fruit_image) }}"
                                                     alt="Fruit of {{ $product->name }}" class="img-fluid">
-                                                <p style="color:#A3CE47;">{{ $product->name }}</p>
+                                                <p style="color:{{ $product->font_color ?? '#000000' }};">
+                                                    {{ $product->name }}
+                                                </p>
                                             </li>
                                         </ul>
                                         <button>
-                                            <a href="{{ route('find.uzi') }}" style="color:#A3CE47;">Shop Now</a>
+                                            <a href="{{ route('find.uzi') }}"
+                                                style="color:{{ $product->font_color ?? '#000000' }};">
+                                                {{-- Shop Now --}}
+                                                {{ $product->name === 'Cherry' ? 'Shop Now' : 'Coming Soon' }}
+                                            </a>
                                         </button>
                                     </div>
                                 </div>
@@ -153,7 +159,7 @@
 
                             </div>
 
-                            <button class="social-btn"><a href="{{ route('about') }}">learn more</a></button>
+                            {{-- <button class="social-btn"><a href="{{ route('about') }}">learn more</a></button> --}}
                         </div>
                     </div>
                 </div>

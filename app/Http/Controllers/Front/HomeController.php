@@ -15,7 +15,7 @@ use App\Models\FAQ;
 use App\Models\Home;
 use App\Models\HomeFeatured;
 use App\Models\Ingredient;
-use App\Models\location;
+use App\Models\Location;
 use App\Models\NewsLatterEmail;
 use App\Models\Product;
 use App\Models\Service;
@@ -62,7 +62,7 @@ class HomeController extends Controller
     public function findUzi()
     {
         $products = Product::with('locations')->where('status', 1)->get();
-        $locations = location::all();
+        $locations = Location::all();
         $banner = Banner::where('page', 'find uzi')->first();
         $logos = AboutOurClient::all();
 

@@ -143,6 +143,18 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        {{-- Font Color --}}
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <h4>Font Color <small>(HEX Code)</small></h4>
+                                                <input type="text" name="font_color" class="form-control"
+                                                    placeholder="Enter Font Color"
+                                                    value="{{ old('font_color', $content->font_color ?? '') }}">
+                                                @error('font_color')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         {{-- <div class="col-sm-12">
                                             <div class="form-group">
                                                 <h4 class="control-label" for="bss2">Select Locations</h4>

@@ -81,3 +81,5 @@ class LocationController extends Controller
         return redirect()->route('admin.manage.locations');
     }
 }
+
+

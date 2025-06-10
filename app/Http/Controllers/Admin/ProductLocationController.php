@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\location;
+use App\Models\Location;
 use App\Models\LocationCoordinate;
 use App\Models\Product;
 use App\Models\Product_location;
@@ -26,7 +26,7 @@ class ProductLocationController extends Controller
     public function create()
     {
         $products = Product::where('status', 1)->get();
-        $locations = location::all();
+        $locations = Location::all();
 
         return view('backend.productLocation.create', compact('products', 'locations'));
     }
@@ -136,14 +136,14 @@ class ProductLocationController extends Controller
             'locations.*.longitude.numeric' => 'Invalid longitude value.',
         ]);
 
-        try {
-            DB::beginTransaction();
-
+        // try {
+            // DB::beginTransaction();
             // Find the Product_location
             $productLocation = Product_location::where('product_id', $validatedData['product_id'])
-                ->where('location_id', $validatedData['location_id'])
-                ->firstOrFail();
-
+            ->where('location_id', $validatedData['location_id'])
+            ->firstOrFail();
+            
+            // dd($productLocation);
 
             // Collect existing coordinate IDs from request
             $submittedIds = collect($validatedData['locations'])->pluck('id')->filter()->toArray();
@@ -178,15 +178,15 @@ class ProductLocationController extends Controller
                 }
             }
 
-            DB::commit();
+            // DB::commit();
 
             toastr()->success('Product Location updated successfully.');
             return redirect()->route('admin.manage.product-locations');
-        } catch (\Exception $e) {
-            DB::rollBack();
+        // } catch (\Exception $e) {
+            // DB::rollBack();
             toastr()->error('An error occurred while updating the Product Location.');
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
-        }
+        // }
     }
 
     public function destroy(string $id, string $location_id)

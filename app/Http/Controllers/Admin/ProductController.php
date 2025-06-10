@@ -9,7 +9,7 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\location;
+use App\Models\Location;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        // $locations = location::all();
+        // $locations = Location::all();
         return view('backend.product.create', compact('categories'));
     }
 
@@ -40,6 +40,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'discount_percentage' => 'nullable|numeric|min:0|max:100',
+            'font_color' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
             'packing_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
             'fruit_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
@@ -77,6 +78,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'discount_percentage' => $request->discount_percentage,
+            'font_color' => $request->font_color,
             'image' => $imageName,
             'packing_image' => $packingImageName,
             'fruit_image' => $fruitImageName,
@@ -104,6 +106,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string',
             'category_id' => 'required|exists:categories,id',
@@ -111,8 +114,9 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'discount_percentage' => 'nullable|numeric|min:0|max:100',
-            'location' => 'required|array',
-            'location.*' => 'exists:locations,id',
+            'font_color' => 'nullable|string',
+            // 'location' => 'required|array',
+            // 'location.*' => 'exists:locations,id',
 
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
             'packing_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
@@ -154,13 +158,14 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'discount_percentage' => $request->discount_percentage,
+            'font_color' => $request->font_color,
             'image' => $imageName,
             'packing_image' => $packingImageName,
             'fruit_image' => $fruitImageName,
             'status' => 1,
             'featured' => 0,
         ]);
-        $product->locations()->sync($request->location);
+        // $product->locations()->sync($request->location);
 
         toastr()->success('Product updated successfully.');
         return redirect()->route('admin.manage.products');

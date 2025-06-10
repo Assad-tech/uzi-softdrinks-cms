@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UZI - @yield('title')</title>
-
+    <script>
+        window.appUrl = "{{ url('/') }}";
+    </script>
     <!-- fav-icon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('front/assets/images/fav.png') }}">
 

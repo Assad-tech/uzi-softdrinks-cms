@@ -128,7 +128,18 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <select id="bss2" class="form-control" name="location[]" data-toggle="selectpicker"
+
+                                    {{-- Font Color --}}
+                                    <div class="form-group">
+                                        <h4>Font Color <small>(HEX Code)</small></h4>
+                                        <input type="text" name="font_color" class="form-control"
+                                            value="{{ old('font_color', $product->font_color) }}">
+                                        @error('font_color')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- <select id="bss2" class="form-control" name="location[]" data-toggle="selectpicker"
                                         data-width="100%" title="Choose one or more" multiple>
                                         @foreach ($locations as $location)
                                             <option value="{{ $location->id }}"
@@ -136,7 +147,7 @@
                                                 {{ $location->location }}
                                             </option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
                                     {{-- Fruit Image --}}
                                     <div class="col-sm-12">
                                         <div class="form-group">

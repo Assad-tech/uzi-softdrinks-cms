@@ -32,7 +32,8 @@
                     <div class="row">
                         <div class="col-lg-8 col-sm-6 col-md-8 col-12">
                             <div class="map-content rounded-left">
-                                <div id="map" class="rounded-left" style="height: 590px; width: 100%; border-radius: 30px 0 0px 30px;"></div>
+                                <div id="map" class="rounded-left"
+                                    style="height: 590px; width: 100%; border-radius: 30px 0 0px 30px;"></div>
 
                             </div>
 
@@ -150,9 +151,10 @@
                 clearMarkers();
                 return;
             }
-
+            // var url = `url('/')`;
+            // url: `/api/product-locations/${productId}/${locationId}`,
             $.ajax({
-                url: `/api/product-locations/${productId}/${locationId}`,
+                url: `${window.appUrl}/api/product-locations/${productId}/${locationId}`,
                 method: 'GET',
                 success: function(product) {
                     clearMarkers();

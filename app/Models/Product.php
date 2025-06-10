@@ -17,21 +17,23 @@ class Product extends Model
         'price',
         'stock',
         'discount_percentage',
+        'font_color',
         'image',
         'status',
         'packing_image',
         'fruit_image',
     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-
     public function cartItems()
     {
         return $this->hasMany(CartItem::class);
     }
+
     // Define the relationship with ProductLocation
     public function productLocations()
     {
