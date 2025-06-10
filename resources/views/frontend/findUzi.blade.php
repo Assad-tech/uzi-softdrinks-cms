@@ -191,8 +191,8 @@
                             <div class="map-item-content">
                                 <img src="/front/assets/images/large-circle.png" class="img-fluid" alt="">
                                 <div class="map-inner-content">
-                                    <h4>${product.name}</h4>
-                                    <p>${coord.place}</p>
+                                    <h4>${coord.place}</h4>
+                                    <p>${coord.address}</p>
                                 </div>
                                 <a class="inner-btn view-marker-btn" 
                                    href="#!" 

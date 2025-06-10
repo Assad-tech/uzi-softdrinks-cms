@@ -68,7 +68,7 @@
                             {{-- Dynamic coordinates fields container --}}
                             <div id="coordinates-container">
                                 <div class="row coordinates-row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Place Name</label>
                                             <input type="text" name="locations[0][place]" class="form-control"
@@ -78,7 +78,17 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" name="locations[0][address]" class="form-control"
+                                                placeholder="Enter Place" value="{{ old('locations.0.address') }}">
+                                            @error('locations.0.address')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>Latitude</label>
                                             <input type="text" name="locations[0][latitude]" class="form-control"
@@ -88,7 +98,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>Longitude</label>
                                             <input type="text" name="locations[0][longitude]" class="form-control"
@@ -99,8 +109,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-1 d-flex align-items-center">
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            style="display: none;">
+                                        <button type="button" class="btn btn-danger btn-sm" style="display: none;">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
@@ -146,21 +155,35 @@
             $("#add-coordinate").on("click", function() {
                 const newRow = $(`
         <div class="row coordinates-row">
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label>Place Name</label>
-                    <input type="text" name="locations[${coordinateIndex}][place]" class="form-control" placeholder="Enter Place">
-                    <div class="text-danger"></div>
+                    <input type="text" name="locations[0][place]" class="form-control"
+                        placeholder="Enter Place" value="{{ old('locations.0.place') }}">
+                    @error('locations.0.place')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="locations[0][address]" class="form-control"
+                        placeholder="Enter Place" value="{{ old('locations.0.address') }}">
+                    @error('locations.0.address')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label>Latitude</label>
                     <input type="text" name="locations[${coordinateIndex}][latitude]" class="form-control" placeholder="Enter Latitude">
                     <div class="text-danger"></div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label>Longitude</label>
                     <input type="text" name="locations[${coordinateIndex}][longitude]" class="form-control" placeholder="Enter Longitude">

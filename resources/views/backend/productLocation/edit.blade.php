@@ -72,7 +72,7 @@
                                     <div class="row coordinates-row">
                                         <input type="hidden" name="locations[{{ $index }}][id]"
                                             value="{{ $coordinate->id }}">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Place Name</label>
                                                 <input type="text" name="locations[{{ $index }}][place]"
@@ -83,7 +83,18 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input type="text" name="locations[{{ $index }}][address]"
+                                                    class="form-control"
+                                                    value="{{ old("locations.$index.address", $coordinate->address) }}">
+                                                @error("locations.$index.address")
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Latitude</label>
                                                 <input type="text" name="locations[{{ $index }}][latitude]"
@@ -94,7 +105,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Longitude</label>
                                                 <input type="text" name="locations[{{ $index }}][longitude]"
@@ -144,19 +155,25 @@
 
             let row = `
             <div class="row coordinates-row">
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label>Place Name</label>
                         <input type="text" name="locations[${index}][place]" class="form-control" placeholder="Enter Place">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" name="locations[${index}][address]" class="form-control" placeholder="Enter Address">
+                    </div>
+                </div>
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Latitude</label>
                         <input type="text" name="locations[${index}][latitude]" class="form-control" placeholder="Enter Latitude">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Longitude</label>
                         <input type="text" name="locations[${index}][longitude]" class="form-control" placeholder="Enter Longitude">

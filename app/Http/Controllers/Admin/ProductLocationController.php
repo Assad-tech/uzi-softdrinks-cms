@@ -36,6 +36,7 @@ class ProductLocationController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate request data
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -43,10 +44,12 @@ class ProductLocationController extends Controller
             'locations.*.place' => 'required|string|max:255',
             'locations.*.latitude' => 'required|numeric|between:-90,90',
             'locations.*.longitude' => 'required|numeric|between:-180,180',
+            'locations.*.address' => 'required|string',
         ], [
             'product_id.required' => 'Please select a product.',
             'location_id.required' => 'Please select a location.',
             'locations.*.place.required' => 'The place name is required.',
+            'locations.*.address.required' => 'The address is required.',
             'locations.*.latitude.required' => 'Latitude is required.',
             'locations.*.latitude.numeric' => 'Invalid latitude value.',
             'locations.*.longitude.required' => 'Longitude is required.',
@@ -66,6 +69,7 @@ class ProductLocationController extends Controller
                 foreach ($validatedData['locations'] as $location) {
                     $existingProLoc->locationCoordinates()->create([
                         'place' => $location['place'],
+                        'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
                     ]);
@@ -81,6 +85,7 @@ class ProductLocationController extends Controller
                 foreach ($validatedData['locations'] as $location) {
                     $newProLoc->locationCoordinates()->create([
                         'place' => $location['place'],
+                        'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
                     ]);
@@ -123,26 +128,29 @@ class ProductLocationController extends Controller
             'product_id' => 'required|exists:products,id',
             'location_id' => 'required|exists:locations,id',
             'locations.*.id' => 'nullable|integer|exists:location_coordinates,id',
-            'locations.*.place' => 'required|string|max:255',
+            'locations.*.place' => 'required|string',
+            'locations.*.address' => 'required|string',
             'locations.*.latitude' => 'required|numeric|between:-90,90',
             'locations.*.longitude' => 'required|numeric|between:-180,180',
         ], [
             'product_id.required' => 'Please select a product.',
             'location_id.required' => 'Please select a location.',
             'locations.*.place.required' => 'The place name is required.',
+            'locations.*.address.required' => 'The address is required.',
             'locations.*.latitude.required' => 'Latitude is required.',
             'locations.*.latitude.numeric' => 'Invalid latitude value.',
             'locations.*.longitude.required' => 'Longitude is required.',
             'locations.*.longitude.numeric' => 'Invalid longitude value.',
         ]);
 
-        // try {
-            // DB::beginTransaction();
+        // dd($validatedData);
+        try {
+            DB::beginTransaction();
             // Find the Product_location
             $productLocation = Product_location::where('product_id', $validatedData['product_id'])
-            ->where('location_id', $validatedData['location_id'])
-            ->firstOrFail();
-            
+                ->where('location_id', $validatedData['location_id'])
+                ->firstOrFail();
+
             // dd($productLocation);
 
             // Collect existing coordinate IDs from request
@@ -164,6 +172,7 @@ class ProductLocationController extends Controller
                     if ($coordinate) {
                         $coordinate->update([
                             'place' => $location['place'],
+                            'address' => $location['address'],
                             'latitude' => $location['latitude'],
                             'longitude' => $location['longitude'],
                         ]);
@@ -172,21 +181,22 @@ class ProductLocationController extends Controller
                     // New coordinate
                     $productLocation->locationCoordinates()->create([
                         'place' => $location['place'],
+                        'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
                     ]);
                 }
             }
 
-            // DB::commit();
+            DB::commit();
 
             toastr()->success('Product Location updated successfully.');
             return redirect()->route('admin.manage.product-locations');
-        // } catch (\Exception $e) {
-            // DB::rollBack();
+        } catch (\Exception $e) {
+            DB::rollBack();
             toastr()->error('An error occurred while updating the Product Location.');
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
-        // }
+        }
     }
 
     public function destroy(string $id, string $location_id)

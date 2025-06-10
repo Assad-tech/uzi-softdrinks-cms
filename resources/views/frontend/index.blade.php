@@ -96,16 +96,6 @@
         <section class="malibu" data-aos="fade-up" data-aos-offset="400">
             <div class="container-fluid">
                 <div class="owl-carousel">
-                    {{-- <div class="item" style="width:900px">
-                        <img style="height: 465px;" src="{{ asset('front/assets/images/malibu.png') }}" class="img-fluid"
-                            alt="">
-                    </div>
-                    <div class="item" style="width:350px">
-                        <img src="{{ asset('front/assets/images/graps-2.png') }}" class="img-fluid" alt="">
-                    </div>
-                    <div class="item" style="width:350px">
-                        <img src="{{ asset('front/assets/images/cherry.jpg') }}" class="img-fluid" alt="">
-                    </div> --}}
                     @foreach ($sliders as $slider)
                         <div class="item" style="width: 100%; min-width: 350px; max-width: 900px;">
                             <img style="height: 465px;" src="{{ asset('front/assets/images/sliders/' . $slider->image) }}"
@@ -118,15 +108,15 @@
         </section>
 
         <!-- Social Links -->
-        <section class="social-sec">
+        <section class="social-sec" hidden>
             <div class="container">
                 <div class="row">
                     <div class="social-content">
                         <div class="col-lg-12" data-aos="fade-left" data-aos-offset="200">
                             <ul class="social-icn">
-                                <li><a href="{{ $youtube->youtube }}"><i class="fa-brands fa-youtube"></i></a></li>
                                 <li><a href="{{ $tiktok->tiktok }}"><i class="fa-brands fa-tiktok"></i></a></li>
                                 <li><a href="{{ $insta->instagram }}"><i class="fa-brands fa-instagram"></i></a></li>
+                                <li><a href="{{ $youtube->youtube }}"><i class="fa-brands fa-youtube"></i></a></li>
                                 <li><a href="{{ $fb->facebook }}"><i class="fa-brands fa-facebook"></i></a></li>
                             </ul>
                             <h2>THE NEW WAY TO BUZZ</h2>
@@ -139,27 +129,9 @@
                                         <span>{{ $data->title ?? '' }}</span>
                                     </div>
                                 @endforeach
-                                {{-- <div class="first-text">
-                                    <img src="{{ asset('front/assets/images/image 10.png') }}" class="img-fluid"
-                                        alt="">
-                                    <span>MILK THISTLE</span>
-                                </div>
-
-                                <div class="second-text">
-                                    <img src="{{ asset('front/assets/images/image3.png') }}" class="img-fluid"
-                                        alt="">
-                                    <span>GLUTEN</span>
-                                </div>
-
-                                <div class="third-text">
-                                    <img src="{{ asset('front/assets/images/image4.png') }}" class="img-fluid"
-                                        alt="">
-                                    <span>ELECTROLYTES </span>
-                                </div> --}}
-
                             </div>
 
-                            {{-- <button class="social-btn"><a href="{{ route('about') }}">learn more</a></button> --}}
+                            <button class="social-btn"><a href="{{ route('about') }}">learn more</a></button>
                         </div>
                     </div>
                 </div>

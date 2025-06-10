@@ -37,9 +37,9 @@
                        <div class="head-bar-main">
                            <ul>
                                <li><a href="{{ route('home') }}">Home</a></li>
-                               <li><a href="{{ route('about') }}">About UZI</a></li>
-                               <li><a href="{{ route('ingredients') }}">Ingredients</a></li>
                                <li><a href="{{ route('find.uzi') }}">Find UZI </a></li>
+                               {{-- <li><a href="{{ route('about') }}">About UZI</a></li>
+                               <li><a href="{{ route('ingredients') }}">Ingredients</a></li> --}}
                            </ul>
                        </div>
                    </div>
@@ -58,10 +58,10 @@
 
                        <div class="head-nav-social">
                            <ul>
-                               <li><a href="{{ $youtube->youtube }}"><i class="fa-brands fa-youtube"></i></a></li>
+                               {{-- <li><a href="{{ $youtube->youtube }}"><i class="fa-brands fa-youtube"></i></a></li>
+                               <li><a href="{{ $fb->facebook }}"><i class="fa-brands fa-facebook"></i></a></li> --}}
                                <li><a href="{{ $tiktok->tiktok }}"><i class="fa-brands fa-tiktok"></i></a></li>
                                <li><a href="{{ $insta->instagram }}"><i class="fa-brands fa-instagram"></i></a></li>
-                               <li><a href="{{ $fb->facebook }}"><i class="fa-brands fa-facebook"></i></a></li>
                            </ul>
                        </div>
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('coordinate_id')->constrained('product_locations')->onDelete('cascade');
             $table->string('place');
+            $table->string('address');
             $table->double('latitude');
             $table->double('longitude');
             $table->timestamps();
@@ -28,4 +29,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('location_coordinates');
     }
+
+    
 };

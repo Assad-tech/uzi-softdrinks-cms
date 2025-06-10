@@ -32,7 +32,7 @@
                                     <th>#</th>
                                     <th>Product</th>
                                     <th>Locations</th>
-                                    <th>Coordinates</th>
+                                    <th>Outlet & Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,7 +56,7 @@
                                                     <ul class="list-group">
                                                         @foreach ($productLocation->locationCoordinates as $coordinate)
                                                             <li class="list-group-item p-1">
-                                                                {{ $coordinate->place ?? 'N/A' }}
+                                                                {{ $coordinate->place ?? 'N/A'}} {{'-'}} {{$coordinate->address ?? 'N/A' }}
                                                             </li>
                                                         @endforeach
                                                     </ul>
