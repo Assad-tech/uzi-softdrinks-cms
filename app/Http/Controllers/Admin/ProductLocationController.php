@@ -41,10 +41,11 @@ class ProductLocationController extends Controller
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
             'location_id' => 'required|exists:locations,id',
-            'locations.*.place' => 'required|string|max:255',
+            'locations.*.place' => 'required|string',
             'locations.*.latitude' => 'required|numeric|between:-90,90',
             'locations.*.longitude' => 'required|numeric|between:-180,180',
             'locations.*.address' => 'required|string',
+            'locations.*.map_link' => 'required|string|url',
         ], [
             'product_id.required' => 'Please select a product.',
             'location_id.required' => 'Please select a location.',
@@ -54,6 +55,8 @@ class ProductLocationController extends Controller
             'locations.*.latitude.numeric' => 'Invalid latitude value.',
             'locations.*.longitude.required' => 'Longitude is required.',
             'locations.*.longitude.numeric' => 'Invalid longitude value.',
+            'locations.*.map_link.required' => 'The map link is required',
+            'locations.*.map_link.url' => 'The map link must be a valid URL.',
         ]);
 
         try {
@@ -64,6 +67,7 @@ class ProductLocationController extends Controller
                 ->where('location_id', $validatedData['location_id'])
                 ->first();
 
+                // dd($existingProLoc);
             if ($existingProLoc) {
                 // Product already assigned to the location, add new coordinates
                 foreach ($validatedData['locations'] as $location) {
@@ -72,9 +76,11 @@ class ProductLocationController extends Controller
                         'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
+                        'link' => $location['map_link'],
                     ]);
                 }
             } else {
+                // dd($validatedData['locations']);
                 // Create new ProductLocation
                 $newProLoc = new Product_location();
                 $newProLoc->product_id = $validatedData['product_id'];
@@ -83,11 +89,13 @@ class ProductLocationController extends Controller
 
                 // Save Location Coordinates
                 foreach ($validatedData['locations'] as $location) {
+                    // dd($location['map_link']);
                     $newProLoc->locationCoordinates()->create([
                         'place' => $location['place'],
                         'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
+                        'link' => $location['map_link'],
                     ]);
                 }
             }
@@ -132,6 +140,8 @@ class ProductLocationController extends Controller
             'locations.*.address' => 'required|string',
             'locations.*.latitude' => 'required|numeric|between:-90,90',
             'locations.*.longitude' => 'required|numeric|between:-180,180',
+            'locations.*.map_link' => 'required|string|url',
+
         ], [
             'product_id.required' => 'Please select a product.',
             'location_id.required' => 'Please select a location.',
@@ -141,6 +151,8 @@ class ProductLocationController extends Controller
             'locations.*.latitude.numeric' => 'Invalid latitude value.',
             'locations.*.longitude.required' => 'Longitude is required.',
             'locations.*.longitude.numeric' => 'Invalid longitude value.',
+            'locations.*.map_link.required' => 'The map link is required',
+            'locations.*.map_link.url' => 'The map link must be a valid URL.',
         ]);
 
         // dd($validatedData);
@@ -151,12 +163,9 @@ class ProductLocationController extends Controller
                 ->where('location_id', $validatedData['location_id'])
                 ->firstOrFail();
 
-            // dd($productLocation);
-
-            // Collect existing coordinate IDs from request
+                // Collect existing coordinate IDs from request
             $submittedIds = collect($validatedData['locations'])->pluck('id')->filter()->toArray();
 
-            // dd($submittedIds);
             // 4. Delete removed coordinates (those not in submitted IDs)
             LocationCoordinate::where('coordinate_id', $productLocation->id)
                 ->whereNotIn('id', $submittedIds)
@@ -175,6 +184,7 @@ class ProductLocationController extends Controller
                             'address' => $location['address'],
                             'latitude' => $location['latitude'],
                             'longitude' => $location['longitude'],
+                            'link' => $location['map_link'],
                         ]);
                     }
                 } else {
@@ -184,6 +194,7 @@ class ProductLocationController extends Controller
                         'address' => $location['address'],
                         'latitude' => $location['latitude'],
                         'longitude' => $location['longitude'],
+                        'link' => $location['map_link'],
                     ]);
                 }
             }

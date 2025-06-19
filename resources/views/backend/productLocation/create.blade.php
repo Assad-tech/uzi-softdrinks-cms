@@ -113,6 +113,16 @@
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
+                                    <div class="col-11 mt-1">
+                                        <div class="form-group">
+                                            <label>Google Maps Link</label>
+                                            <input type="text" name="locations[0][map_link]" class="form-control"
+                                                placeholder="Google Maps Link" value="{{ old('locations.0.map_link') }}">
+                                            @error('locations.0.map_link')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -154,49 +164,57 @@
             // Add a new coordinate row
             $("#add-coordinate").on("click", function() {
                 const newRow = $(`
-        <div class="row coordinates-row">
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label>Place Name</label>
-                    <input type="text" name="locations[0][place]" class="form-control"
-                        placeholder="Enter Place" value="{{ old('locations.0.place') }}">
-                    @error('locations.0.place')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" name="locations[0][address]" class="form-control"
-                        placeholder="Enter Place" value="{{ old('locations.0.address') }}">
-                    @error('locations.0.address')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
+                <div class="row coordinates-row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Place Name</label>
+                            <input type="text" name="locations[${coordinateIndex}][place]" class="form-control"
+                                placeholder="Enter Place" value="{{ old('locations.0.place') }}">
+                            @error('locations.0.place')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" name="locations[${coordinateIndex}][address]" class="form-control"
+                                placeholder="Enter Place" value="{{ old('locations.0.address') }}">
+                            @error('locations.0.address')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
 
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" name="locations[${coordinateIndex}][latitude]" class="form-control" placeholder="Enter Latitude">
-                    <div class="text-danger"></div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Latitude</label>
+                            <input type="text" name="locations[${coordinateIndex}][latitude]" class="form-control" placeholder="Enter Latitude">
+                            <div class="text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="text" name="locations[${coordinateIndex}][longitude]" class="form-control" placeholder="Enter Longitude">
+                            <div class="text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 d-flex align-items-center" style="margin-top: 0.70rem;">
+                        <button type="button" class="btn btn-danger btn-sm remove-coordinate">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="col-11 mt-1">
+                        <div class="form-group">
+                            <label>Google Maps Link</label>
+                            <input type="text" name="locations[${coordinateIndex}][map_link]" class="form-control"
+                                placeholder="Google Maps Link" value="{{ old('locations.0.map_link') }}">
+                            <div class="text-danger"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" name="locations[${coordinateIndex}][longitude]" class="form-control" placeholder="Enter Longitude">
-                    <div class="text-danger"></div>
-                </div>
-            </div>
-            <div class="col-sm-1 d-flex align-items-center" style="margin-top: 0.70rem;">
-                <button type="button" class="btn btn-danger btn-sm remove-coordinate">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    `);
+            `);
                 $("#coordinates-container").append(newRow);
                 coordinateIndex++;
                 updateRemoveButtons();

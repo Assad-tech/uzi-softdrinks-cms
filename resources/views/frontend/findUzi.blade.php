@@ -69,13 +69,13 @@
                                 <div class="map-item-wrapper" style="max-height: 400px; overflow-y: auto;">
                                     {{-- map-item-content elements will be injected here --}}
                                     <div class="map-item-content">
-                                        <img src="{{ asset('front/assets/images/large-circle.png') }}" class="img-fluid"
-                                            alt="">
+                                        {{-- <img src="{{ asset('front/assets/images/large-circle.png') }}" class="img-fluid"
+                                            alt=""> --}}
                                         <div class="map-inner-content">
-                                            <h4>SAFEWAY</h4>
-                                            <p>9619 ROEHAMPTON STREET HARRISBURG, PA 17109</p>
+                                            {{-- <h4>SAFEWAY</h4>
+                                            <p>9619 ROEHAMPTON STREET HARRISBURG, PA 17109</p> --}}
                                         </div>
-                                        <a class="inner-btn" href="#!">View</a>
+                                        {{-- <a class="inner-btn" href="#!">View</a> --}}
                                     </div>
                                 </div>
 
@@ -121,7 +121,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Initialize map
-        var map = L.map('map').setView([38.7946, -97.5348], 4); // Default center and zoom level
+        // Default center and zoom level
+        var map = L.map('map').setView([38.7946, -97.5348], 4);
 
         // Load OSM tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -132,8 +133,19 @@
         var markers = [];
 
         // Function to add a marker
-        function addMarker(lat, lon, popupText) {
-            var marker = L.marker([lat, lon]).addTo(map).bindPopup(popupText);
+        function addMarker(lat, lon, placeName, mapLink) {
+            var marker = L.marker([lat, lon]).addTo(map);
+
+            marker.bindTooltip(placeName, {
+                permanent: false,
+                direction: 'top',
+                opacity: 0.8
+            });
+            marker.on('click', function() {
+                if (mapLink) {
+                    window.open(mapLink, '_blank');
+                }
+            });
             markers.push(marker);
         }
 
@@ -151,20 +163,18 @@
                 clearMarkers();
                 return;
             }
-            // var url = `url('/')`;
-            // url: `/api/product-locations/${productId}/${locationId}`,
+
             $.ajax({
                 url: `${window.appUrl}/api/product-locations/${productId}/${locationId}`,
                 method: 'GET',
                 success: function(product) {
                     clearMarkers();
-                    console.log(product);
+                    // console.log(product);
 
                     // Clear and prepare the info box container
-                    $('.map-item-content').remove(); // Remove existing entries
+                    $('.map-item-content').remove();
 
                     if (!product.product_locations || !product.product_locations.length) {
-                        // Show "Location not found" message
                         const noLocationHtml = `
                             <div class="map-item-content">
                                 <div class="map-inner-content">
@@ -183,22 +193,28 @@
 
                         coordinates.forEach(function(coord) {
                             // Add marker
-                            addMarker(parseFloat(coord.latitude), parseFloat(coord.longitude),
-                                coord.place);
+                            addMarker(
+                                parseFloat(coord.latitude),
+                                parseFloat(coord.longitude),
+                                coord.place,
+                                coord.link
+                            );
 
                             // Add info card for each coordinate
                             const contentHtml = `
                             <div class="map-item-content">
                                 <img src="/front/assets/images/large-circle.png" class="img-fluid" alt="">
                                 <div class="map-inner-content">
-                                    <h4>${coord.place}</h4>
+                                    <h4><i class="fa-solid fa-store" style="margin-right: 6px;"></i> ${coord.place}</h4>
                                     <p>${coord.address}</p>
                                 </div>
                                 <a class="inner-btn view-marker-btn" 
                                    href="#!" 
                                    data-lat="${coord.latitude}" 
                                    data-lng="${coord.longitude}" 
-                                   data-place="${coord.place}">View</a>
+                                   data-place="${coord.place}"
+                                   data-link="${coord.link}">
+                                >View</a>
                             </div>
                         `;
                             $('.map-item-wrapper').append(contentHtml);
@@ -229,144 +245,15 @@
             const lat = parseFloat($(this).data('lat'));
             const lon = parseFloat($(this).data('lng'));
             const place = $(this).data('place');
+            const link = $(this).data('link');
 
             clearMarkers();
 
             // Add the specific marker
-            addMarker(lat, lon, place);
+            addMarker(lat, lon, place, link);
 
             // Center the map on this location
             map.setView([lat, lon], 12);
         });
     </script>
-
-    {{-- <script>
-        let map;
-        let markers = [];
-
-        function initMap() {
-            const defaultCenter = {
-                lat: 38.7946,
-                lng: -97.5348
-            };
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
-                center: defaultCenter,
-                mapTypeId: 'roadmap'
-            });
-        }
-
-        function addMarker(position, title) {
-            const marker = new google.maps.Marker({
-                position,
-                map,
-                title
-            });
-            markers.push(marker);
-        }
-
-        function clearMarkers() {
-            markers.forEach(marker => marker.setMap(null));
-            markers = [];
-        }
-
-        function fetchAndDisplayMarkers(productId, locationId) {
-            if (!productId || !locationId) {
-                clearMarkers();
-                return;
-            }
-            // url: `/api/product-locations`,
-            // console.log(productId, locationId);
-            $.ajax({
-                url: `/api/product-locations/${productId}/${locationId}`,
-                method: 'GET',
-                success: function(product) {
-                    clearMarkers();
-                    console.log(product);
-
-                    // Clear and prepare the info box container
-                    $('.map-item-content').remove(); // Remove existing entries
-
-                    if (!product.product_locations || !product.product_locations.length) {
-                        alert('Product not available in this location.');
-                        return;
-                    }
-
-                    product.product_locations.forEach(productLocation => {
-                        const coordinates = productLocation.location_coordinates;
-
-                        if (!coordinates || !coordinates.length) return;
-
-                        coordinates.forEach(coord => {
-                            // Add marker
-                            addMarker({
-                                    lat: parseFloat(coord.latitude),
-                                    lng: parseFloat(coord.longitude)
-                                },
-                                coord.place
-                            );
-
-                            // Add info card for each coordinate
-                            const contentHtml = `
-                                <div class="map-item-content">
-                                    <img src="/front/assets/images/large-circle.png" class="img-fluid" alt="">
-                                    <div class="map-inner-content">
-                                        <h4>${product.name}</h4>
-                                        <p>${coord.place}</p>
-                                    </div>
-                                    <a class="inner-btn view-marker-btn" 
-                                    href="#!" 
-                                    data-lat="${coord.latitude}" 
-                                    data-lng="${coord.longitude}" 
-                                    data-place="${coord.place}">View</a>
-                                </div>
-                            `;
-                            // $('.inner-sub-content').append(contentHtml);
-                            $('.map-item-wrapper').append(contentHtml);
-
-                        });
-                    });
-
-                    // Center map on the first coordinate of the first location
-                    const firstCoord = product.product_locations[0].location_coordinates[0];
-                    map.setCenter({
-                        lat: parseFloat(firstCoord.latitude),
-                        lng: parseFloat(firstCoord.longitude)
-                    });
-                    map.setZoom(7);
-                },
-                error: function() {
-                    alert('Error fetching location data.');
-                }
-            });
-        }
-
-        // Listen to changes on both dropdowns
-        $('#productDropdown, #locationDropdown').on('change', function() {
-            const productId = $('#productDropdown').val();
-            const locationId = $('#locationDropdown').val();
-            // console.log(productId, locationId);
-            fetchAndDisplayMarkers(productId, locationId);
-        });
-
-        // Delegate event after dynamic elements added
-        $(document).on('click', '.view-marker-btn', function(e) {
-            e.preventDefault();
-
-            const lat = parseFloat($(this).data('lat'));
-            const lng = parseFloat($(this).data('lng'));
-            const place = $(this).data('place');
-
-            clearMarkers();
-
-            const position = {
-                lat,
-                lng
-            };
-            addMarker(position, place);
-
-            map.setCenter(position);
-            map.setZoom(12);
-        });
-    </script> --}}
 @endpush

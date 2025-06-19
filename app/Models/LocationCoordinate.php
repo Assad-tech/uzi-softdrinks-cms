@@ -14,6 +14,7 @@ class LocationCoordinate extends Model
         'address',
         'latitude',
         'longitude',
+        'link',
     ];
 
     // Define the relationship with ProductLocation

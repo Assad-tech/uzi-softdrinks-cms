@@ -121,6 +121,18 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
+                                        {{-- New: map_link field --}}
+                                        <div class="col-11 mt-1">
+                                            <div class="form-group">
+                                                <label>Google Maps Link</label>
+                                                <input type="text" name="locations[{{ $index }}][map_link]"
+                                                    class="form-control" placeholder="Google Maps Link"
+                                                    value="{{ old("locations.$index.map_link", $coordinate->link) }}">
+                                                @error("locations.$index.map_link")
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
