@@ -1,6 +1,12 @@
 @extends('frontend.layouts.master')
 @section('title', 'Home')
 @push('custom_css')
+    <style>
+        section.icons {
+            padding: 500px 0 190px 0;
+            margin-top: -110px;
+        }
+    </style>
 @endpush
 @section('header')
     @include('frontend.partials.header')

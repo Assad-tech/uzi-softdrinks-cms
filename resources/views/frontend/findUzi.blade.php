@@ -3,6 +3,13 @@
 @push('custom_css')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        a.inner-btn {
+            color: black;
+            text-transform: uppercase;
+            font-weight: normal;
+        }
+    </style>
 @endpush
 @section('header')
     @include('frontend.partials.header2')
@@ -66,8 +73,8 @@
                                         </select>
                                     </label>
                                 </div>
+
                                 <div class="map-item-wrapper" style="max-height: 400px; overflow-y: auto;">
-                                    {{-- map-item-content elements will be injected here --}}
                                     <div class="map-item-content">
                                         {{-- <img src="{{ asset('front/assets/images/large-circle.png') }}" class="img-fluid"
                                             alt=""> --}}
@@ -115,9 +122,6 @@
 @endsection
 
 @push('custom_js')
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHPUXXuMgK_aPOQo0qllRwRME6gO03Q3I&callback=initMap" async
-        defer></script> --}}
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Initialize map
@@ -141,11 +145,11 @@
                 direction: 'top',
                 opacity: 0.8
             });
-            marker.on('click', function() {
-                if (mapLink) {
-                    window.open(mapLink, '_blank');
-                }
-            });
+            // marker.on('click', function() {
+            //     if (mapLink) {
+            //         window.open(mapLink, '_blank');
+            //     }
+            // });
             markers.push(marker);
         }
 
@@ -203,18 +207,20 @@
                             // Add info card for each coordinate
                             const contentHtml = `
                             <div class="map-item-content">
-                                <img src="/front/assets/images/large-circle.png" class="img-fluid" alt="">
+                                <img src="{{asset('front/assets/images/shop.png')}}" style="width: 50px; height: 60px;" class="img-fluid" alt="">
                                 <div class="map-inner-content">
-                                    <h4><i class="fa-solid fa-store" style="margin-right: 6px;"></i> ${coord.place}</h4>
+                                    <h4> ${coord.place}</h4>
                                     <p>${coord.address}</p>
                                 </div>
-                                <a class="inner-btn view-marker-btn" 
-                                   href="#!" 
+                                <a class="inner-btn view-marker-btn btn btn-secondary btn-sm rounded-0 text-light"  
+                                   href="${coord.link}"
+                                   target="_blank"
+                                   rel="noopener noreferrer" 
                                    data-lat="${coord.latitude}" 
                                    data-lng="${coord.longitude}" 
                                    data-place="${coord.place}"
-                                   data-link="${coord.link}">
-                                >View</a>
+                                   data-link="${coord.link}">Direction
+                                </a>
                             </div>
                         `;
                             $('.map-item-wrapper').append(contentHtml);
@@ -240,20 +246,43 @@
 
         // Delegate event after dynamic elements added
         $(document).on('click', '.view-marker-btn', function(e) {
-            e.preventDefault();
+            // e.preventDefault(); //commented to use view button as map view url..
 
             const lat = parseFloat($(this).data('lat'));
             const lon = parseFloat($(this).data('lng'));
             const place = $(this).data('place');
             const link = $(this).data('link');
 
-            clearMarkers();
+            // clearMarkers();
 
             // Add the specific marker
-            addMarker(lat, lon, place, link);
+            // addMarker(lat, lon, place, link);
 
             // Center the map on this location
-            map.setView([lat, lon], 12);
+            map.setView([lat, lon], 8);
+        });
+    </script>
+
+    <script>
+        $('#productDropdown').on('change', function() {
+            const productId = $(this).val();
+
+            if (productId) {
+                // Automatically select the first available location
+                const $firstLocationOption = $('#locationDropdown option').not(':first')
+                    .first(); // skip placeholder
+                const firstLocationId = $firstLocationOption.val();
+
+                // Set it as selected
+                $('#locationDropdown').val(firstLocationId);
+
+                // Trigger marker fetching
+                fetchAndDisplayMarkers(productId, firstLocationId);
+            } else {
+                // If no product selected, clear map
+                clearMarkers();
+                $('#locationDropdown').val(''); // reset location selection
+            }
         });
     </script>
 @endpush
